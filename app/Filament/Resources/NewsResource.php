@@ -38,6 +38,8 @@ class NewsResource extends Resource
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
+                    ->image()
+                    // ->directory('news')
                     ->required()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('users_id')
