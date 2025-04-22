@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Controllers\LandingPage;
+
+use App\Http\Controllers\Controller;
+use App\Models\Aboutme;
+use App\Models\Announcement;
+use App\Models\Cooperation;
+use App\Models\News;
+use App\Models\Rektor;
+
+class LandingPageController extends Controller
+{
+    public function index()
+    {
+        $cooperationImg = Cooperation::all();
+        $rektor = Rektor::all();
+        $abouts = Aboutme::first();
+        $announcements = Announcement::latest()->take(3)->get();
+        $news = News::latest()->take(3)->get();
+
+        return view('landing', compact('cooeperationImg','rektors','abouts','announcements','news'));
+    }
+}
