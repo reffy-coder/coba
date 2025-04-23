@@ -141,7 +141,7 @@
         <div class="relative">
           <div class="grid grid-cols-2 gap-6 w-fit">
             @if (isset($abouts->image[0]))
-              <img src="{{asset('storage/'.$abouts->image[0]}}" alt="Illustration 1" />
+              <img src="{{asset('storage/'.$abouts->image[0])}}" alt="Illustration 1" />
             @endif
             @if (isset($abouts->image[1]))
             <img src="{{asset('storage/'.$abouts->image[1])}}" alt="Illustration 2" />
@@ -208,10 +208,10 @@
           class="p-[14px] rounded-[20px] border border-xneutral-100 bg-xneutral-0"
         >
           <div class="max-h-[214px] rounded-2xl overflow-hidden mb-5">
-            <img src="{{ asset('storage/' . $image->image)}}" alt="{{ $newslist->title }}" />
+            <img src="{{ asset('storage/' . $newslist->image)}}" alt="{{ $newslist->title }}" />
           </div>
           <a
-            href="berita.html"
+            href="{{route('berita.show' , $newslist->slug )}}"
             class="text-base sm:text-lg font-montserrat font-semibold text-xneutral-400 line-clamp-2"
           >
             {{ $newslist->title }}
@@ -292,17 +292,17 @@
         @foreach ( $rectors as $rektor )
          <div class="flex flex-col items-center">
           <div class="rounded-full overflow-hidden w-fit mb-6">
-            <img src="/assets/images/orang-3.png" alt="Angga Setiawan" />
+            <img src="{{asset('storage/'.$rektor->image)}}" alt="{{$rektor->nama}}" />
           </div>
           <p
             class="mb-[2px] text-sm sm:text-base text-xneutral-400 font-semibold font-montserrat"
           >
-            Angga Setiawan
+          {{$rektor->nama}}
           </p>
           <p
             class="mb-[2px] text-xs sm:text-sm text-xneutral-200 font-semibold font-montserrat"
           >
-            Rektor
+            {{$rektor->jabatan}}
           </p>
         </div> 
         @endforeach
@@ -342,65 +342,47 @@
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          @forelse ( $announcements as $announcement )
+            
           <div
             class="py-[26px] px-7 rounded-[20px] border border-xneutral-100 bg-white"
           >
             <a
-              href=""
+              href="{{route('pengumuman.show' , $announcement->slug)}}"
               class="text-base sm:text-lg font-montserrat font-semibold text-xneutral-400 line-clamp-2 mb-4"
             >
-              Mahasiswa PKM-KC Alat Sensor Batuk Pasien TBC
+              {{($announcement->title)}}
             </a>
             <p
               class="font-montserrat text-xs sm:text-sm font-semibold text-xneutral-200 mb-1.5"
             >
-              Tingginya kasus TBC membuat mahasiswa membentuk tim Program....
+            {{Str::limit($announcement->content, 100, '...')}}
             </p>
             <p class="font-montserrat text-xs font-semibold text-xneutral-200">
-              20/08/24
+            {{ \Carbon\Carbon::parse($newslist->created_ad)->format('d/m/y') }}
             </p>
           </div>
+          @empty
           <div
-            class="py-[26px] px-7 rounded-[20px] border border-xneutral-100 bg-white"
-          >
-            <a
-              href=""
-              class="text-base sm:text-lg font-montserrat font-semibold text-xneutral-400 line-clamp-2 mb-4"
-            >
-              Green Idul Adha Dapat Apresiasi Majelis Lingkungan
-            </a>
-            <p
-              class="font-montserrat text-xs sm:text-sm font-semibold text-xneutral-200 mb-1.5"
-            >
-              Ada yang berbeda dari hari idul Adha 1444 Hijriah saat ini karena
-            </p>
-            <p class="font-montserrat text-xs font-semibold text-xneutral-200">
-              26/09/24
+        class="py-[26px] px-7 rounded[20px] border border-xneutral-100 bg-white"
+      >
+          <p class="font-montserrat text-lg sm:text-xl font-semibold text-neutral-400">
+              no data available
             </p>
           </div>
-          <div
-            class="py-[26px] px-7 rounded-[20px] border border-xneutral-100 bg-white"
-          >
-            <a
-              href=""
-              class="text-base sm:text-lg font-montserrat font-semibold text-xneutral-400 line-clamp-2 mb-4"
-            >
-              Prodi Informatika Pemenang Juara 1 Gemastik 2024
-            </a>
-            <p
-              class="font-montserrat text-xs sm:text-sm font-semibold text-xneutral-200 mb-1.5"
-            >
-              Mahasiswa informatika menang lomba Gemastik 2024 kategori Cyber
-              Security
-            </p>
-            <p class="font-montserrat text-xs font-semibold text-xneutral-200">
-              28/09/24
-            </p>
-          </div>
+          @endforelse
         </div>
       </div>
     </section>
     <!-- END OF ANNOUNCEMENT SECTION -->
+<!-- .card>img+div.content>h3+p -->
+<!-- <div class="card"></div>
+  <img src="" alt="">
+  <div class="content">
+    <h3></h3>
+    <p></p>
+  </div> -->
+</div>
 
 
   </body>

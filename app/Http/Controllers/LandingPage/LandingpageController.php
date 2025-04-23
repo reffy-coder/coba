@@ -14,7 +14,7 @@ class LandingPageController extends Controller
     public function index()
     {
         $cooperationImg = Cooperation::all();
-        $rektor = Rektor::all();
+        $rectors = Rektor::all();
         $abouts = Aboutme::first();
         $announcements = Announcement::latest()->take(3)->get();
         $news = News::latest()->take(3)->get();
